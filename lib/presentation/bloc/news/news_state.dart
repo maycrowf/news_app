@@ -23,7 +23,7 @@ class NewsLoadingFailure extends NewsState {
 }
 
 class NewsLoaded extends NewsState {
-  final List<NewsModel> newsList;
+  final List<NewsEntity> newsList;
 
   NewsLoaded({required this.newsList});
 

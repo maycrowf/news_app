@@ -20,9 +20,20 @@ Future<void> initInjector() async {
     ..registerLazySingleton<NewsRemoteDatasource>(
       () => NewsRemoteDatasourceImpl(injector<Client>()),
     )
+    ..registerLazySingleton<NewsLocalDataSource>(
+      () => NewsLocalDataSourceImpl(injector<LocalStorage>()),
+    )
 
     // Repositories
-    ..registerLazySingleton<NewsRepositoryInterface>(
-      () => NewsRepository(injector<Client>()),
+    ..registerLazySingleton<NewsRepository>(
+      () => NewsRepositoryImpl(
+        injector<NewsRemoteDatasource>(),
+        injector<NewsLocalDataSource>(),
+      ),
+    )
+
+    // Usecases
+    ..registerLazySingleton<NewsUsecases>(
+      () => NewsUsecases(injector<NewsRepository>()),
     );
 }

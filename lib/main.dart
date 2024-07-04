@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:news/core/core.dart';
 import 'package:news/core/storage/local_storage.dart';
 import 'package:news/core/storage/local_storage_impl.dart';
-import 'package:news/data/datasources/remote/news/news_remote_datasource.dart';
-import 'package:news/data/datasources/remote/news/news_remote_datasource_impl.dart';
-import 'package:news/repositories/news/news.dart';
+import 'package:news/data/datasources/export_datasources.dart';
+import 'package:news/data/repositories/export_repository_impls.dart';
+import 'package:news/domain/usecases/export_usecases.dart';
+import 'package:news/domain/repositories/export_repositories.dart';
+import 'package:news/presentation/view/news_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:news/features/news/news.dart';
 import 'package:get_it/get_it.dart';
 
 part 'injector.dart';

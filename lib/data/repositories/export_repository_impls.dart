@@ -1,0 +1,1 @@
+export 'news/news_repository_impl.dart';

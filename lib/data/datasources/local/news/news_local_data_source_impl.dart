@@ -5,9 +5,7 @@ import 'news_local_data_source.dart';
 class NewsLocalDataSourceImpl implements NewsLocalDataSource {
   final LocalStorage _localStorage;
 
-  const NewsLocalDataSourceImpl({
-    required LocalStorage localStorage,
-  }) : _localStorage = localStorage;
+  const NewsLocalDataSourceImpl(this._localStorage);
 
   @override
   Future<void> likeNews({required String url}) async {

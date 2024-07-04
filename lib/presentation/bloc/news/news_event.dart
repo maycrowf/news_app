@@ -4,17 +4,20 @@ part of 'news_bloc.dart';
 abstract class NewsEvent extends Equatable {}
 
 class LoadNews extends NewsEvent {
-  final GetNewsQueryParams getNewsQueryParams;
+  final String country;
+  final String category;
   final Completer? completer;
 
   LoadNews({
-    required this.getNewsQueryParams,
+    required this.country,
+    required this.category,
     this.completer,
   });
 
   @override
   List<Object?> get props => [
-        getNewsQueryParams,
+        country,
+        category,
         completer,
       ];
 }

@@ -1,10 +1,10 @@
 import 'package:news/domain/entities/export_entities.dart';
 import 'package:news/domain/repositories/export_repositories.dart';
 
-class NewsUseCases {
+class NewsUsecases {
   final NewsRepository _newsRepository;
 
-  NewsUseCases(this._newsRepository);
+  NewsUsecases(this._newsRepository);
 
   Future<List<NewsEntity>> getNews({
     required String country,
