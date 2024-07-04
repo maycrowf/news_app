@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:news/domain/entities/news/news_entity.dart';
 import 'package:news/domain/usecases/export_usecases.dart';
+import 'package:news/presentation/_widgets/widgets.dart';
 import 'package:news/presentation/bloc/news/news_bloc.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -19,10 +21,11 @@ class _NewsScreenState extends State<NewsScreen> {
   final String _country = "us";
   final String _category = "business";
 
-  void _loadNews() {
+  void _loadNews([Completer? completer]) {
     _newsBloc.add(LoadNews(
       country: _country,
       category: _category,
+      completer: completer,
     ));
   }
 
@@ -43,7 +46,7 @@ class _NewsScreenState extends State<NewsScreen> {
         onRefresh: () {
           final completer = Completer();
 
-          _loadNews();
+          _loadNews(completer);
 
           return completer.future;
         },
@@ -52,39 +55,13 @@ class _NewsScreenState extends State<NewsScreen> {
           builder: (context, state) {
             if (state is NewsLoaded) {
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: ListView.builder(
                   physics: const AlwaysScrollableScrollPhysics(),
                   padding: const EdgeInsets.only(bottom: 16),
                   itemCount: state.newsList.length,
                   itemBuilder: (context, index) {
-                    final news = state.newsList[index];
-                    return Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: AspectRatio(
-                            aspectRatio: 1,
-                            child: news.urlToImage != null
-                                ? Image.network(
-                                    news.urlToImage!,
-                                    fit: BoxFit.cover,
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return const Center(
-                                          child: CircularProgressIndicator());
-                                    },
-                                  )
-                                : null,
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(news.title ?? "Новость №$index}"),
-                        const SizedBox(height: 6),
-                        Text(news.description ?? ""),
-                      ],
-                    );
+                    return NewsItem(news: state.newsList[index]);
                   },
                 ),
               );

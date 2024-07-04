@@ -33,7 +33,10 @@ class NewsApp extends StatelessWidget {
     return MaterialApp(
       title: 'News App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
+        scaffoldBackgroundColor: Colors.grey[300],
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.white,
+        ),
         useMaterial3: true,
       ),
       home: const NewsScreen(),

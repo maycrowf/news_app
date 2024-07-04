@@ -13,9 +13,7 @@ class NewsModel extends Equatable {
   final String? title;
   final String? description;
   final String? url;
-  @JsonKey(name: 'url_to_image')
   final String? urlToImage;
-  @JsonKey(name: 'published_at')
   final String? publishedAt;
   final String? content;
 
