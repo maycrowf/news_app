@@ -1,19 +1,28 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'core/service_locator.dart';
+import 'package:news/core/core.dart';
+import 'package:news/core/storage/local_storage.dart';
+import 'package:news/core/storage/local_storage_impl.dart';
+import 'package:news/data/datasources/remote/news/news_remote_datasource.dart';
+import 'package:news/data/datasources/remote/news/news_remote_datasource_impl.dart';
+import 'package:news/repositories/news/news.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:news/features/news/news.dart';
+import 'package:get_it/get_it.dart';
 
-void main() {
+part 'injector.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initInjector();
 
-  SystemChrome.setPreferredOrientations([
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) async {
-    await ServiceLocator.init();
     runApp(const NewsApp());
   });
 }
-
 
 class NewsApp extends StatelessWidget {
   const NewsApp({super.key});

@@ -1,4 +1,4 @@
-import 'package:news/core/api/api_interface.dart';
+import 'package:news/core/network/client.dart';
 import 'package:news/repositories/news/models/get_news_query_params.dart';
 
 import 'package:news/repositories/news/models/news_model.dart';
@@ -6,14 +6,14 @@ import 'package:news/repositories/news/models/news_model.dart';
 import 'news_repository_interface.dart';
 
 class NewsRepository implements NewsRepositoryInterface {
-  final ApiInterface _api;
+  final Client _client;
 
-  NewsRepository({required ApiInterface api}) : _api = api;
+  NewsRepository(this._client);
 
   @override
   Future<List<NewsModel>> getNews(GetNewsQueryParams getNewsParams) async {
     try {
-      final response = await _api.get(
+      final response = await _client.get(
         "/top-headlines",
         queryParameters: getNewsParams.toMap(),
       );
@@ -23,8 +23,8 @@ class NewsRepository implements NewsRepositoryInterface {
       ));
 
       return newsList;
-    } catch (e) {
-      throw Exception(e);
+    } catch (_) {
+      rethrow;
     }
   }
 }

@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:news/core/api/api_interface.dart';
+import 'package:news/core/constants/app_constants.dart';
 
-class MainApi implements ApiInterface {
+import 'client.dart';
+
+class DioClient implements Client {
   final Dio _dio;
+  final String _apiKey;
 
-  const MainApi({required Dio dio}) : _dio = dio;
-
-  static const _url = "https://newsapi.org/v2";
-  static const _apiKey = "0f32c255f1df438cbe03f4f184a6864c";
+  DioClient(this._dio) : _apiKey = AppConstants.apiKey {
+    _dio.options.baseUrl = AppConstants.url;
+  }
 
   @override
   Future<Map<String, dynamic>> get(
@@ -19,7 +21,7 @@ class MainApi implements ApiInterface {
       paramsWithKey.addAll(queryParameters ?? {});
 
       Response response = await _dio.get(
-        "$_url$path",
+        path,
         options: Options(validateStatus: (status) => true),
         queryParameters: paramsWithKey,
       );
@@ -31,8 +33,8 @@ class MainApi implements ApiInterface {
       }
 
       return responseData;
-    } on DioException catch (e) {
-      throw Exception(e.response?.data);
+    } on DioException {
+      rethrow;
     }
   }
 }

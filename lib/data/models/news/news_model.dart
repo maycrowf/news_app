@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:news/domain/entities/export_entities.dart';
 
 import '../source/source_model.dart';
 
@@ -31,6 +32,17 @@ class NewsModel extends Equatable {
 
   factory NewsModel.fromJson(Map<String, dynamic> json) =>
       _$NewsModelFromJson(json);
+
+  NewsEntity toEntity() => NewsEntity(
+        source: source.toEntity(),
+        author: author,
+        title: title,
+        description: description,
+        url: url,
+        urlToImage: urlToImage,
+        publishedAt: publishedAt,
+        content: content,
+      );
 
   Map<String, dynamic> toJson() => _$NewsModelToJson(this);
 
