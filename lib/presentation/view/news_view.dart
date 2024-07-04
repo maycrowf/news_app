@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:news/domain/entities/news/news_entity.dart';
+import 'package:news/domain/repositories/export_repositories.dart';
 import 'package:news/domain/usecases/export_usecases.dart';
 import 'package:news/presentation/_widgets/widgets.dart';
 import 'package:news/presentation/bloc/news/news_bloc.dart';
@@ -61,7 +61,9 @@ class _NewsScreenState extends State<NewsScreen> {
                   padding: const EdgeInsets.only(bottom: 16),
                   itemCount: state.newsList.length,
                   itemBuilder: (context, index) {
-                    return NewsItem(news: state.newsList[index]);
+                    return NewsItem(
+                      news: state.newsList[index],
+                    );
                   },
                 ),
               );
