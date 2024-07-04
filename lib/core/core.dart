@@ -1,2 +1,1 @@
-export 'api/api.dart';
-export 'service_locator.dart';
+export 'network/export_network.dart';
